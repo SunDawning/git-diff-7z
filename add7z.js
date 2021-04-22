@@ -1,5 +1,7 @@
 /*
  * 使用7z.exe来创建压缩文件
+ * 附加7z.exe的使用说明书
+ * "c:/Program Files/7-Zip/7z.exe" --help
  */
 /**
  * 添加文件到压缩包

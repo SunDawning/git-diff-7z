@@ -1,17 +1,20 @@
 /*
  * 使用7z.exe来增量打包Git里变动的文件
+ * - 以命令行方式使用
+ * - 以JavaScript模块的方式使用
+ * - ［ ］ 双击可执行程序使用
  */
 import{gitDiff7z}from"./gitDiff7z.js";
 import{help}from"./help.js";
-/*
+import{
+    parse
+}from"https://deno.land/std/flags/mod.ts";
+/**
  * 命令行
  * deno run --allow-run --allow-read --allow-write --unstable main.js --input "c:/users/sgs/AppData/Roaming/literate-programming" --output "c:/users/sgs/AppData/Roaming/literate-programming/6fba75e-8abdc66.zip" --from "6fba75e" --to "8abdc66"
  * deno compile --allow-run --allow-read --allow-write --unstable --output gitDiff7z.exe main.js
  * gitDiff7z.exe --input "c:/users/sgs/AppData/Roaming/literate-programming" --output "c:/users/sgs/AppData/Roaming/literate-programming/6fba75e-8abdc66.zip" --from "6fba75e" --to "8abdc66"
  */
-import{
-    parse
-}from"https://deno.land/std/flags/mod.ts";
 function main(){
     console.log(Deno.env);
     let args=parse(Deno.args);
