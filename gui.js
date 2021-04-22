@@ -22,8 +22,20 @@ async function gui(){
 Powered by Deno.
 `);
     for await (let request of server){
-        let body=new TextDecoder("utf-8").decode(Deno.readFileSync("gui.html"));
-        request.respond({body});
+        let body;
+        let headers;
+        console.log(request.url);
+        switch(request.url){
+            case "/gui.html.js":
+                body=new TextDecoder("utf-8").decode(Deno.readFileSync("gui.html.js"));
+                headers=new Headers();
+                headers.set("content-type","application/javascript; charset=utf-8");
+                request.respond({body:body,headers:headers});
+                break;
+            default:
+                body=new TextDecoder("utf-8").decode(Deno.readFileSync("gui.html"));
+                request.respond({body});
+        }
     }
 }
 export{gui}
