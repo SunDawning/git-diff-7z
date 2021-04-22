@@ -23,7 +23,7 @@ function gitDiff7z(options){
     if(cwd.endsWith("/")===false){
         cwd=cwd+"/";
     }
-    let archiveFile=output||`${cwd.substring(0,cwd.length-1)}-${archiveName}.zip`;
+    let archiveFile=output||`${cwd.substring(0,cwd.length-1)}-${archiveName}-${new Date().getTime()}.zip`;
     function onFiles(files){
         ensureDirSync(archiveName);
         let total=files.length;
