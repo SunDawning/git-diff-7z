@@ -13,7 +13,7 @@ import{gui}from"./gui.js";
 /**
  * 命令行
  * deno run --allow-run --allow-read --allow-write --unstable main.js --input "c:/users/sgs/AppData/Roaming/literate-programming" --output "c:/users/sgs/AppData/Roaming/literate-programming/6fba75e-8abdc66.zip" --from "6fba75e" --to "8abdc66"
- * deno compile --allow-run --allow-read --allow-write --unstable --output gitDiff7z.exe main.js
+ * deno compile --allow-run --allow-read --allow-write --unstable --allow-net --output gitDiff7z.exe main.js
  * gitDiff7z.exe --input "c:/users/sgs/AppData/Roaming/literate-programming" --output "c:/users/sgs/AppData/Roaming/literate-programming/6fba75e-8abdc66.zip" --from "6fba75e" --to "8abdc66"
  * deno run --allow-run --allow-read --allow-write --unstable --watch --allow-net main.js
  */
@@ -25,7 +25,7 @@ function main(){
     }else if(args.help===true){
         console.log(readme);
     }else if(args.version){
-        console.log("<2021-04-22 Thu 21:31:48 UTC+08:00>");
+        console.log("<2021-04-23 Fri 00:01:02 UTC+08:00>");
     }else{
         gitDiff7z(args);
     }

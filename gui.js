@@ -3,6 +3,7 @@
  */
 import{serve}from"https://deno.land/std/http/server.ts";
 import{gitDiff7z}from"./gitDiff7z.js";
+import{browseURL}from"./browseURL.js";
 /**
  * 在浏览器里使用程序
  */
@@ -18,10 +19,11 @@ async function gui(){
 - http://${hostname}:${port}/
 - http://localhost:${port}
 
-在浏览器里访问上述地址，即可在界面里进行Git增量打包。
+在浏览器里访问上述地址，即可在界面里进行打包。
 
 Powered by Deno.
 `);
+    browseURL(`http://localhost:${port}`);
     for await (let request of server){
         let body;
         let headers;
@@ -45,7 +47,7 @@ Powered by Deno.
                 default:
                     body=new TextDecoder("utf-8").decode(Deno.readFileSync("gui.html"));
                     request.respond({body});
-            }            
+            }
         }
     }
 }
