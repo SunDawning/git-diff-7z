@@ -2,6 +2,7 @@
  * GUI界面
  */
 import{serve}from"https://deno.land/std/http/server.ts";
+import{gitDiff7z}from"./gitDiff7z.js";
 /**
  * 在浏览器里使用程序
  */
@@ -34,6 +35,10 @@ Powered by Deno.
                 break;
             case "/gitDiff7z":
                 console.log("打包");
+                gitDiff7z({
+                    input:"c:/users/sgs/AppData/Roaming/literate-programming",
+                    from:"6fba75e",
+                });
                 request.respond({status:200});
                 break;
             default:
