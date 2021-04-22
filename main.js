@@ -30,9 +30,9 @@ function main(){
         gitDiff7z(args);
     }
 }
-    if(import.meta.main){
-        main();
-    }
-    export{
-        gitDiff7z
-    }
+if(import.meta.main){
+    main();
+}
+export{
+    gitDiff7z
+}

@@ -1,4 +1,4 @@
-import{gitDiff7zPost}from"./gitDiff7zPost.js";
+import{postObjectInJSON}from"./postObjectInJSON.js";
 function gui(){
     let gui=document.createElement("div");
     document.body.appendChild(gui);
@@ -37,7 +37,7 @@ function gui(){
             text:"打包",
             name:"gitDiff7z",
             onClick:function(event){
-                gitDiff7zPost("/gitDiff7z",{
+                postObjectInJSON("/gitDiff7z",{
                     input:"c:/users/sgs/AppData/Roaming/literate-programming",
                     from:"6fba75e",
                 });
