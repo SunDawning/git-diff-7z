@@ -23,6 +23,7 @@ function gitDiff7z(options){
     function onFiles(files){
         ensureDirSync(archiveName);
         let total=files.length;
+        console.log(files);
         function onFinishCopy(c){
             if(c===(total-1)){
                 console.log("onFinishCopy");
@@ -36,8 +37,14 @@ function gitDiff7z(options){
         }
         for(let c=0;c<total;c=c+1){
             let file=files[c];
-            let archiveFile=`${archiveName}/${file}`;
+            let cwd=input;
+            if(cwd.endsWith("/")===false){
+                cwd=cwd+"/";
+            }
+            let archiveFile=`${cwd}${archiveName}/${file}`;
             ensureFile(archiveFile).then(function(){
+                file=`${cwd}`+file;
+                console.log(file,">",archiveFile);
                 copy(file,archiveFile,{overwrite:true}).then(function(){
                     onFinishCopy(c);
                 });
@@ -148,10 +155,14 @@ import{
     existsSync,
 }from"https://deno.land/std/fs/mod.ts";
 function gitDiffFiles(cwd,from,to,onFile,onFiles){
+    if(cwd.endsWith("/")===false){
+        cwd=cwd+"/";
+    }
     function onFalseQuotepath(data){
         function onGitDiff(data){
             let files=[];
             function mapFile(file){
+                console.log(file);
                 if(file.length===0){return;}
                 function onFileExists(is){
                     if(!(is===true)){return;}
@@ -160,13 +171,14 @@ function gitDiffFiles(cwd,from,to,onFile,onFiles){
                         onFile(file);
                     }
                 }
-                onFileExists(existsSync(file))
+                onFileExists(existsSync(cwd+file));
             }
             new TextDecoder().decode(data).split("\n").forEach(mapFile);
             if(onFiles){
                 onFiles(files);
             }
         }
+        console.log(cwd);
         Deno.run({
             cwd:cwd,
             cmd:["git","diff",from,to,"--name-only"],
@@ -176,6 +188,7 @@ function gitDiffFiles(cwd,from,to,onFile,onFiles){
     }
     // git diff 中文 汉字编码显示_Aero's WorkSpace.-CSDN博客: https://blog.csdn.net/yuangc/article/details/107316295
     Deno.run({
+        cwd:cwd,
         cmd:"git config core.quotepath false".split(" "),
     }).status().then(onFalseQuotepath);
 }
@@ -189,6 +202,7 @@ import{
     parse
 }from"https://deno.land/std/flags/mod.ts";
 function main(){
+    console.log(Deno.env);
     let args=parse(Deno.args);
     if(args.help===true){
         console.log(`
