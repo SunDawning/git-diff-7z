@@ -26,24 +26,26 @@ Powered by Deno.
         let body;
         let headers;
         console.log(request.url);
-        switch(request.url){
-            case "/gui.html.js":
-                body=new TextDecoder("utf-8").decode(Deno.readFileSync("./gui.html.js"));
-                headers=new Headers();
-                headers.set("content-type","application/javascript; charset=utf-8");
-                request.respond({body:body,headers:headers});
-                break;
-            case "/gitDiff7z":
-                console.log("打包");
-                gitDiff7z({
-                    input:"c:/users/sgs/AppData/Roaming/literate-programming",
-                    from:"6fba75e",
-                });
-                request.respond({status:200});
-                break;
-            default:
-                body=new TextDecoder("utf-8").decode(Deno.readFileSync("gui.html"));
-                request.respond({body});
+        // 访问.js文件时：/gui.html.js => ./gui.html.js
+        if(request.url.endsWith(".js")){
+            body=new TextDecoder("utf-8").decode(Deno.readFileSync(`.${request.url}`));
+            headers=new Headers();
+            headers.set("content-type","application/javascript; charset=utf-8");
+            request.respond({body:body,headers:headers});
+        }else{
+            switch(request.url){
+                case "/gitDiff7z":
+                    console.log("打包");
+                    gitDiff7z({
+                        input:"c:/users/sgs/AppData/Roaming/literate-programming",
+                        from:"6fba75e",
+                    });
+                    request.respond({status:200});
+                    break;
+                default:
+                    body=new TextDecoder("utf-8").decode(Deno.readFileSync("gui.html"));
+                    request.respond({body});
+            }            
         }
     }
 }

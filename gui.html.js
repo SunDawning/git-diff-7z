@@ -1,3 +1,4 @@
+import{gitDiff7zPost}from"./gitDiff7zPost.js";
 function gui(){
     let gui=document.createElement("div");
     document.body.appendChild(gui);
@@ -36,18 +37,10 @@ function gui(){
             text:"打包",
             name:"gitDiff7z",
             onClick:function(event){
-                console.log("打包");
-                let headers=new Headers();
-                headers.set("content-type","application/json; charset=utf-8")
-                let data={
+                gitDiff7zPost("/gitDiff7z",{
                     input:"c:/users/sgs/AppData/Roaming/literate-programming",
                     from:"6fba75e",
-                }
-                window.fetch("/gitDiff7z",{
-                    method:"POST",
-                    headers:headers,
-                    body:JSON.stringify(data),
-                })
+                });
             }
         }
     ].forEach(function(item){

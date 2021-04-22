@@ -15,6 +15,7 @@ import{gui}from"./gui.js";
  * deno run --allow-run --allow-read --allow-write --unstable main.js --input "c:/users/sgs/AppData/Roaming/literate-programming" --output "c:/users/sgs/AppData/Roaming/literate-programming/6fba75e-8abdc66.zip" --from "6fba75e" --to "8abdc66"
  * deno compile --allow-run --allow-read --allow-write --unstable --output gitDiff7z.exe main.js
  * gitDiff7z.exe --input "c:/users/sgs/AppData/Roaming/literate-programming" --output "c:/users/sgs/AppData/Roaming/literate-programming/6fba75e-8abdc66.zip" --from "6fba75e" --to "8abdc66"
+ * deno run --allow-run --allow-read --allow-write --unstable --watch --allow-net main.js
  */
 function main(){
     let args=parse(Deno.args);
