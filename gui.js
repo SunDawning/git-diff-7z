@@ -22,16 +22,7 @@ async function gui(){
 Powered by Deno.
 `);
     for await (let request of server){
-        let body=`<html>
-<head>
-<meta charset="utf-8">
-<meta http-equiv="Content-Type" name="viewport" content="width=device-width">
-<title>Git增量打包工具</title>
-</head>
-<body>
-Git增量打包工具
-</body>
-</html>`;
+        let body=new TextDecoder("utf-8").decode(Deno.readFileSync("gui.html"));
         request.respond({body});
     }
 }
