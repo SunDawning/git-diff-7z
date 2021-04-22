@@ -27,10 +27,14 @@ Powered by Deno.
         console.log(request.url);
         switch(request.url){
             case "/gui.html.js":
-                body=new TextDecoder("utf-8").decode(Deno.readFileSync("gui.html.js"));
+                body=new TextDecoder("utf-8").decode(Deno.readFileSync("./gui.html.js"));
                 headers=new Headers();
                 headers.set("content-type","application/javascript; charset=utf-8");
                 request.respond({body:body,headers:headers});
+                break;
+            case "/gitDiff7z":
+                console.log("打包");
+                request.respond({status:200});
                 break;
             default:
                 body=new TextDecoder("utf-8").decode(Deno.readFileSync("gui.html"));
