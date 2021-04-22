@@ -217,12 +217,12 @@ function main(){
 
 示例：
 
-    将＂~/literate-programming＂仓库里，从＂3d058b2＂到＂HEAD＂之间变动的全部文件都放到压缩包＂../a.zip＂里
+    将＂./literate-programming＂仓库里，从＂3d058b2＂到＂HEAD＂之间变动的全部文件都放到压缩包＂../a.zip＂里
 
     gitDiff7z.exe --input ./literate-programming --output ../a.zip --from 3d058b2 --to HEAD
 `);
     } else if(args.version){
-        console.log("<2021-04-22 Thu 07:51:41 UTC+08:00>");
+        console.log("<2021-04-22 Thu 08:17:53 UTC+08:00>");
     }else{
         gitDiff7z(args);
     }
