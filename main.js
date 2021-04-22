@@ -5,7 +5,7 @@
  * - ［ ］ 双击可执行程序使用
  */
 import{gitDiff7z}from"./gitDiff7z.js";
-import{help}from"./help.js";
+import{readme}from"./readme.js";
 import{
     parse
 }from"https://deno.land/std/flags/mod.ts";
@@ -19,9 +19,9 @@ function main(){
     console.log(Deno.env);
     let args=parse(Deno.args);
     if(args.help===true){
-        console.log(help);
+        console.log(readme);
     } else if(args.version){
-        console.log("<2021-04-22 Thu 19:13:30 UTC+08:00>");
+        console.log("<2021-04-22 Thu 19:33:48 UTC+08:00>");
     }else{
         gitDiff7z(args);
     }

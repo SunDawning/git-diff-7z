@@ -1,7 +1,7 @@
 /*
  * 程序的说明书
  */
-let help=`
+let readme=`
 一个Git增量打包工具：
 
 将Git两次提交之间变动的文件放到一个压缩包里
@@ -31,4 +31,4 @@ let help=`
 
     gitDiff7z.exe --input ./literate-programming --output ../a.zip --from 3d058b2 --to HEAD
 `
-export{help}
+export{readme}
