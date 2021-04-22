@@ -1,5 +1,5 @@
 /**
- * 使用7z.exe来对增量打包Git里变动的文件
+ * 使用7z.exe来增量打包Git里变动的文件
  */
 import{
     emptyDir,
@@ -20,7 +20,6 @@ function gitDiff7z(options){
     let command7z=options.command7z;
     let archiveName=`${from}-${to}`;
     let archiveFile=output||`${input}-${archiveName}.zip`;
-    Deno.chdir(input);
     function onFiles(files){
         ensureDirSync(archiveName);
         let total=files.length;
@@ -45,7 +44,7 @@ function gitDiff7z(options){
             });
         }
     }
-    gitDiffFiles(from,to,undefined,onFiles);
+    gitDiffFiles(input,from,to,undefined,onFiles);
 }
 /**
  * 添加文件到压缩包
@@ -148,7 +147,7 @@ import{
     exists,
     existsSync,
 }from"https://deno.land/std/fs/mod.ts";
-function gitDiffFiles(from,to,onFile,onFiles){
+function gitDiffFiles(cwd,from,to,onFile,onFiles){
     function onFalseQuotepath(data){
         function onGitDiff(data){
             let files=[];
@@ -169,6 +168,7 @@ function gitDiffFiles(from,to,onFile,onFiles){
             }
         }
         Deno.run({
+            cwd:cwd,
             cmd:["git","diff",from,to,"--name-only"],
             stdout:"piped",
             stderr:"piped",
