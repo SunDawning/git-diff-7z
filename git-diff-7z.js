@@ -19,7 +19,11 @@ function gitDiff7z(options){
     let output=options.output;
     let command7z=options.command7z;
     let archiveName=`${from}-${to}`;
-    let archiveFile=output||`${input}-${archiveName}.zip`;
+    let cwd=input;
+    if(cwd.endsWith("/")===false){
+        cwd=cwd+"/";
+    }
+    let archiveFile=output||`${cwd}${archiveName}.zip`;
     function onFiles(files){
         ensureDirSync(archiveName);
         let total=files.length;
@@ -37,10 +41,6 @@ function gitDiff7z(options){
         }
         for(let c=0;c<total;c=c+1){
             let file=files[c];
-            let cwd=input;
-            if(cwd.endsWith("/")===false){
-                cwd=cwd+"/";
-            }
             let archiveFile=`${cwd}${archiveName}/${file}`;
             ensureFile(archiveFile).then(function(){
                 file=`${cwd}`+file;
