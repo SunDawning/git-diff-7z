@@ -1,1 +1,1 @@
-deno run --allow-run --watch --unstable watch.js
+deno run --allow-run --unstable watch.js

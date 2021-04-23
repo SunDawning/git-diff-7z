@@ -38,8 +38,8 @@ function gui(){
             name:"gitDiff7z",
             onClick:function(event){
                 postObjectInJSON("/gitDiff7z",{
-                    input:"c:/users/sgs/AppData/Roaming/.emacs.d/site-lisp/deno/git-diff-7z",
-                    from:"a06a9e6",
+                    input:"c:/users/sgs/AppData/Roaming/literate-programming",
+                    from:"6fba75e",
                 });
             }
         }
