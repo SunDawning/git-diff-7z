@@ -35,15 +35,18 @@ function gitDiff7z(options){
     }
     let archiveFile=output||`${cwd.substring(0,cwd.length-1)}-${archiveName}-${new Date().getTime()}.zip`; // literate-programming-6fba75e-HEAD-1619090885064.zip
     function onFiles(files){
+        archiveName=`${cwd}${archiveName}`;
         ensureDirSync(archiveName);
+        console.log("确认存在",archiveName);
         let total=files.length;
         // console.log(files);
         function onFinishCopy(c){
             if(c===(total-1)){
-                console.log("onFinishCopy");
+                console.log("复制完所有变动的文件到",archiveName);
                 add7z(archiveFile,archiveName,function(){
                     emptyDir(archiveName).then(function(){
                         Deno.remove(archiveName);
+                        console.log("已清空",archiveName);
                         console.log(archiveFile);
                     });
                 },command7z);
@@ -51,10 +54,10 @@ function gitDiff7z(options){
         }
         for(let c=0;c<total;c=c+1){
             let file=files[c];
-            let archiveFile=`${cwd}${archiveName}/${file}`;
+            let archiveFile=`${archiveName}/${file}`;
             ensureFile(archiveFile).then(function(){
                 file=`${cwd}`+file;
-                console.log("Copy",file,">",archiveFile);
+                console.log("复制",file,"到",archiveFile);
                 copy(file,archiveFile,{overwrite:true}).then(function(){
                     onFinishCopy(c);
                 });

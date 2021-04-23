@@ -16,9 +16,11 @@ function add7z(archiveName,fileNames,onAdd,command7z){
     if(typeof(fileNames)==="string"){
         fileNames=[fileNames];
     }
+    let cmd=[command7z,"a",archiveName,fileNames];
+    console.log("使用7z.exe来创建压缩文件",cmd.join(" "));
     Deno.run({
-        cmd:[command7z,"a",archiveName,fileNames]
-    }).status().then(function(data){
+        cmd:cmd,
+        }).status().then(function(data){
         if(onAdd){
             onAdd();
         }
