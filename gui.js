@@ -4,6 +4,7 @@
 import{serve}from"https://deno.land/std/http/server.ts";
 import{gitDiff7z}from"./gitDiff7z.js";
 import{browseURL}from"./browseURL.js";
+import{decodeRequestBody}from"./decodeRequestBody.js";
 /**
  * 在浏览器里使用程序
  */
@@ -27,7 +28,7 @@ Powered by Deno.
     for await (let request of server){
         let body;
         let headers;
-        console.log(request.url);
+        console.log("访问",request.url);
         // 访问.js文件时：/gui.html.js => ./gui.html.js
         if(request.url.endsWith(".js")){
             body=new TextDecoder("utf-8").decode(Deno.readFileSync(`.${request.url}`));
@@ -37,11 +38,10 @@ Powered by Deno.
         }else{
             switch(request.url){
                 case "/gitDiff7z":
-                    console.log("打包");
-                    gitDiff7z({
-                        input:"c:/users/sgs/AppData/Roaming/literate-programming",
-                        from:"6fba75e",
-                    });
+                    console.log("接收到打包请求，开始解析请求的数据。");
+                    let options=JSON.parse(await decodeRequestBody(request.body));
+                    console.log("解析完请求的数据，开始按要求打包：",options);
+                    gitDiff7z(options);
                     request.respond({status:200});
                     break;
                 default:
