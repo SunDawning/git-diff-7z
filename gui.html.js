@@ -9,7 +9,7 @@ max-width: 320px;
 text-align: center;
 padding: 8px;
 `;
-    [
+    let options=[
         {
             text:"选择Git仓库的目录",
             name:"input",
@@ -45,14 +45,25 @@ padding: 8px;
             name:"gitDiff7z",
             onClick:function(event){
                 console.log("点击了打包按钮");
-                postObjectInJSON("/gitDiff7z",{
-                    input:"c:/users/sgs/AppData/Roaming/literate-programming",
-                    from:"6fba75e",
+                let button=event.currentTarget;
+                let collection=button.parentElement.getElementsByTagName("input");
+                let data={};
+                options.map(function(item){
+                    if(collection[item.name]){
+                        let value=collection[item.name].value;
+                        if(value===""){
+                            value=undefined;
+                        }
+                        data[item.name]=value;
+                    }
                 });
+                console.log("请求的数据",data);
+                postObjectInJSON("/gitDiff7z",data);
             },
             type:"button",
         }
-    ].forEach(function(item){
+    ];
+    options.forEach(function(item){
         let type=item.type;
         if(type==="button"){
             let button=document.createElement("button");
@@ -75,7 +86,7 @@ padding: 8px;
     backdrop-filter: blur(24px);
     margin:8px;
     cursor:pointer;
-`            
+`
         }else{
             let input=document.createElement("input");
             input.name=item.name;
