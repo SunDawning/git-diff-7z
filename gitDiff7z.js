@@ -24,6 +24,7 @@ function gitDiff7z(options){
     // "c:/Program Files/7-Zip/7z.exe" a b8c5195-HEAD.zip couple.org
     if(options===undefined){return;}
     let input=options.input;
+    if(input===undefined){return;}
     let from=options.from;
     let to=options.to||"HEAD";
     let output=options.output;
@@ -64,6 +65,17 @@ function gitDiff7z(options){
             });
         }
     }
-    gitDiffFiles(cwd,from,to,undefined,onFiles);
+    if(from===undefined){
+        // git archive -o a.zip HEAD
+        let cmd=[
+            "git","archive","-o",`${archiveFile}`,to,
+        ];
+        console.log("直接使用Git打包",cmd.join(" "));
+        Deno.run({
+            cmd:cmd,
+        }).status();
+    }else{
+        gitDiffFiles(cwd,from,to,undefined,onFiles);
+    }
 }
 export{gitDiff7z}
