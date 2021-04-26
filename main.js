@@ -25,7 +25,7 @@ function main(){
     }else if(args.help===true){
         console.log(readme);
     }else if(args.version){
-        console.log("<2021-04-26 Mon 13:38:11 UTC+08:00>");
+        console.log("<2021-04-26 Mon 13:41:23 UTC+08:00>");
     }else{
         gitDiff7z(args);
     }

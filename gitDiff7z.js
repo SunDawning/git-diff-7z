@@ -72,6 +72,7 @@ function gitDiff7z(options){
         ];
         console.log("直接使用Git打包",cmd.join(" "));
         Deno.run({
+            cwd:cwd,
             cmd:cmd,
         }).status();
     }else{
