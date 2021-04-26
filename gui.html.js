@@ -4,8 +4,6 @@ function gui(){
     document.body.appendChild(gui);
     gui.style.cssText=`
 margin: 0 auto;
-width: 100%;
-max-width: 320px;
 text-align: center;
 padding: 8px;
 `;
@@ -99,7 +97,7 @@ padding: 8px;
     background: rgba(39, 39, 41, 0.04);
     border-radius: 8px;
     padding-left: 12px;
-    width: 304px;
+    width: 100%;
     border: 1px solid transparent;
     height: 46px;`
         }
